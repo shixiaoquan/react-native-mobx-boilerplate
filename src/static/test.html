@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="">
+<!--<![endif]-->
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <title>立即支付</title>
+  <link rel="stylesheet" media="screen" href="//pjpay.taixinyilian.com/ping/public/assets/addons/pay/css/pay.css?v=?v=1.0.1" />
+  <link rel="stylesheet" media="screen" href="//pjpay.taixinyilian.com/ping/public/assets/libs/font-awesome/css/font-awesome.min.css?v=?v=1.0.1" />
+
+</head>
+
+<body onLoad=onLoadComplete()>
+  <div class="container">
+
+    <div class="header">
+
+      <div class="logo alipay"></div>
+    </div>
+    <div class="mainbody">
+      <div class="realprice">￥50.00</div>
+      <div class="help">
+        支付即时到账，未到账请与我们联系<br />订单号：18121114302421057988<br>
+        <a href="alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fpjpay.taixinyilian.com%2Fping%2Fpublic%2Faddons%2Fpay%2Fopenalipay%3Forderid%3D10109320"
+          class="btn btn-info btn-lg" id="btnOpenApp">启动支付宝立即支付</a>
+      </div>
+
+      <div class="qrcode" id="div_qrcode">
+        <div class="image" id="img_a" align="center">
+          <div class="logo hidden-xs logo-alipay"></div>
+          <div class="expired hidden"></div>
+          <div class="paid hidden"></div>
+        </div>
+        <div class="remainseconds">
+          <div class="time minutes">
+            <b>03</b>
+            <em>分</em>
+          </div>
+          <div class="colon">:</div>
+          <div class="time seconds">
+            <b>00</b>
+            <em>秒</em>
+          </div>
+        </div>
+      </div>
+      <!--获取请求的IP和操作系统-->
+      <input type="hidden" id="callback_url" value="//pjpay.taixinyilian.com/ping/public/addons/pay/api/callback">
+      <script type="text/javascript" src="//pjpay.taixinyilian.com/ping/public/assets/libs/jquery/dist/jquery.min.js?v=1.0.1"></script>
+
+      <script>
+        var order = { "order_id": "10109320", "out_order_id": "18121114302421057988", "price": "50.00", "realprice": "50.00", "discountprice": "0.00", "extend": null, "type": "alipay", "remainseconds": 180, "status": "inprogress", "manual": true, "returnurl": "http:\/\/47.102.51.66\/api\/api\/returnpage?channel_orderid=10109320&pay_orderid=18121114302421057988&sign=0B8165B4E5932F5425A3BCAD070D4B5D", "payurl": "", "queryurl": "http:\/\/111.231.212.21\/ping\/public\/addons\/pay\/api\/query?out_order_id=18121114302421057988&sign=02328abf613e258d3b6a6b433dd2489d", "qrcodeurl": "2088332443597585", "qrcoderemark": "ZR509824PJ" };
+        var addon = { successtips: "支付成功!请关闭当前窗口以便于继续操作!", expiretips: "二维码已过期,请点击这里刷新后重新尝试支付!", jumptips: "支付成功!2秒后将自动跳转!" }
+
+        function onLoadComplete() {
+
+          var sUserAgent = navigator.userAgent.toLowerCase();
+          var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+          var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+          var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+          var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+          var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+          var bIsAndroid = sUserAgent.match(/android/i) == "android";
+          var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+          var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+          var bIsQQ = sUserAgent.match(/mqqbrowser|qzone|qqbrowser/i);
+
+          if (/MicroMessenger/i.test(sUserAgent)) {
+            isWeixin = true;
+            alert("请在普通浏览器中打开");
+          } else if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+            location.href = 'alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fpjpay.taixinyilian.com%2Fping%2Fpublic%2Faddons%2Fpay%2Fopenalipay%3Forderid%3D10109320';
+          } else {
+            $("#btnOpenApp").remove();
+          }
+          var qrcode = new QRCode("img_a", {
+            text: 'http://pjpay.taixinyilian.com/ping/public/addons/pay/openalipay?orderid=10109320',
+            width: 200,
+            height: 200,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+          });
+        }
+      </script>
+      <script type="text/javascript" src="//pjpay.taixinyilian.com/ping/public/assets/libs/jquery/dist/qrcode.min.js?v=1.0.1"></script>
+      <script type="text/javascript" src="//pjpay.taixinyilian.com/ping/public/assets/addons/pay/js/pay.js?v=1.0.1"></script>
+      <script type="text/javascript" src="//pjpay.taixinyilian.com/ping/public/assets/addons/pay/js/callback.js?v=1.0.1"></script>
+    </div>
+  </div>
+</body>
+
+</html>
